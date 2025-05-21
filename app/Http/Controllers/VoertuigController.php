@@ -41,4 +41,25 @@ class VoertuigController extends Controller
         }
         return redirect('/')->with('success', 'Voertuig succesvol bijgewerkt.');
     }
+
+    public function available(Request $request, $instructeurId)
+    {
+        $instructeur = \App\Models\Instructeur::findOrFail($instructeurId);
+        $voertuigen = \App\Models\Voertuig::with('type_voertuig', 'instructeurs')->get();
+        return view('voertuigen.available', compact('instructeur', 'voertuigen'));
+    }
+
+    public function assign(Request $request, $instructeurId, $voertuigId)
+    {
+        $instructeur = \App\Models\Instructeur::findOrFail($instructeurId);
+        $voertuig = \App\Models\Voertuig::findOrFail($voertuigId);
+
+        // Koppel voertuig aan instructeur met datum_toekenning
+        $instructeur->voertuigen()->syncWithoutDetaching([
+            $voertuig->id => ['datum_toekenning' => now()->toDateString()]
+        ]);
+
+        return redirect()->route('instructeurs.show', $instructeur->id)
+            ->with('success', 'Voertuig succesvol toegevoegd aan instructeur.');
+    }
 }

@@ -2,7 +2,7 @@
 <p>Datum in dienst: {{ $instructeur->datum_in_dienst }}</p>
 <p>Aantal sterren: {{ $instructeur->aantal_sterren }}</p>
 Create voertuig
-<a href="">🚗</a>
+<a href="{{ route('voertuigen.available', $instructeur->id) }}">🚗</a>
 
 <table border="1" cellpadding="5" cellspacing="0">
     <thead>
