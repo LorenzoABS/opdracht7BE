@@ -34,13 +34,16 @@
     <br>
 
     <label>Bouwjaar:</label>
-    <input type="date" name="bouwjaar" value="{{ $voertuig->bouwjaar }}">
+    <input type="date" name="bouwjaar" value="{{ $voertuig->bouwjaar }}" readonly>
     <br>
 
     <label>Brandstof:</label>
-    <input type="text" name="brandstof" value="{{ $voertuig->brandstof }}">
+    <select name="brandstof">
+        <option value="Benzine" {{ $voertuig->brandstof == 'Benzine' ? 'selected' : '' }}>Benzine</option>
+        <option value="Diesel" {{ $voertuig->brandstof == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+        <option value="Elektrisch" {{ $voertuig->brandstof == 'Elektrisch' ? 'selected' : '' }}>Elektrisch</option>
+    </select>
     <br>
-
     <label>Rijbewijscategorie:</label>
     <input type="text" value="{{ $voertuig->type_voertuig->rijbewijscategorie ?? '' }}" disabled>
     <br>
